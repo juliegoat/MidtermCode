@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" />
+<title>Add Record Form</title>
+</head>
+<body>
+<h1>School Assignments</h1>
+<form>
+    <p>
+        <label for="course">Course:</label>
+        <input type="text" name="course" id="course">
+    </p>
+    <p>
+        <label for="assignment">Assignment:</label>
+        <input type="text" name="assignment" id="assignment">
+    </p>
+    <p>
+        <label for="due_date">Due Date:</label>
+        <input type="date" name="due_date" id="due_date">
+    </p>
+    <input type="submit" value="Submit" onclick="addtoDB()">
+</form>
+<p id="submitted"></p>
+<script>
+function addtoDB() {
+  var xhttp; 
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+        document.getElementById("submitted").innerHTML = "form submitted";
+    }
+  };
+   var course = document.getElementById('course').value;
+   var assignment = document.getElementById('assignment').value;
+   var due_date = document.getElementById('due_date').value;
+   var queryString = "?course=" + course +  "&assignment=" + assignment + "&due_date=" + due_date;
+   console.log(queryString);
+   xhttp.open("GET", "insert.php" + queryString, true);
+   xhttp.send(null); 
+
+   //http://localhost/insert.php?firstname=julie&lastname=Gauthier&email=jgauthier@pace.edu
+}
+</script>
+</body>
+</html>
